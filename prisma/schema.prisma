@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") 
+}
+enum Role {
+  USER
+  AUTHOR
+  ADMIN 
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  comment String @db.Text
+  rating Int @default(0)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  userId Int
+  postId Int
+  User User @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Review_ibfk_1")
+  Post Post @relation(fields: [postId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Review_ibfk_2")
+}
+
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  content   String?  @db.Text
+  picture  String?  @db.VarChar(255) @default("https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png")
+  published Boolean  @default(false)
+  authorId  Int
+  User      User     @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Post_ibfk_1")
+  Review    Review[]
+
+  @@index([authorId], map: "authorId")
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  picture String? @db.VarChar(255) @default("https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png")
+  firstName String? @db.VarChar(255) @default("")
+  lastName String? @db.VarChar(255) @default("")
+  phone String? @db.VarChar(255) @default("")
+  userId Int     @unique(map: "userId")
+  User   User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Profile_ibfk_1")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String?  @db.VarChar(255) @unique(map: "name")
+  email   String   @unique(map: "email") @db.VarChar(255)
+  Post    Post[]
+  Profile Profile?
+  role    Role     @default(USER)
+  password String  @db.VarChar(255)
+  Review  Review[]
+
+}
+
+
