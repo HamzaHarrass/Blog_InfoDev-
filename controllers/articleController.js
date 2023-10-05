@@ -21,6 +21,15 @@ const Review = asyncHandler(async (req, res) => {
 const updateStatus = asyncHandler(async (req, res) => {
 
 });
+const addComment = asyncHandler(async (req, res) => {
+    
+});
+const deleteComment = asyncHandler(async (req, res) => {
+    
+});
+const ratingArticle = asyncHandler(async (req, res) => {
+    
+});
 const home= (req,res)=>{
     res.render('home');
 }
@@ -35,4 +44,7 @@ module.exports={
     Review,
     updateStatus,
     home,
+    addComment,
+    deleteComment,
+    ratingArticle
 }

@@ -9,7 +9,7 @@ const {
     forgetPassword,
     resetPassword,
     updatePassword,
-}=require('../controllers/userController')
+}=require('../controllers/authController')
 
 
 router.get('/logout',logout);

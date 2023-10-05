@@ -5,6 +5,7 @@ const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
 const articlesRouter=require('./routes/article.route')
 const userRouter=require('./routes/user.route')
+const path = require('path');
 const { engine } = require('express-handlebars');
 const { create } = require('express-handlebars');
 const hbs = create({ /* config */ });
@@ -25,6 +26,7 @@ app.set('views', './views');
 app.use('/auth',authRouter)
 app.use('/articles',articlesRouter)
 app.use('/user',userRouter)
+
 
 
 
