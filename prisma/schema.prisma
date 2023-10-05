@@ -18,7 +18,7 @@ enum Role {
 model Review {
   id Int @id @default(autoincrement())
   comment String @db.Text
-  rating Int @default(0)
+  like Boolean @default(false)
   createdAt DateTime @default(now()) @db.Timestamp(0)
   userId Int
   postId Int
@@ -47,6 +47,7 @@ model Profile {
   firstName String? @db.VarChar(255) @default("")
   lastName String? @db.VarChar(255) @default("")
   phone String? @db.VarChar(255) @default("")
+  Info String? @db.Text @default("")
   userId Int     @unique(map: "userId")
   User   User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Profile_ibfk_1")
 }

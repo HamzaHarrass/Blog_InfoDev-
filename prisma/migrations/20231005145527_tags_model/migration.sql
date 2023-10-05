@@ -2,7 +2,7 @@
 CREATE TABLE `Review` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `comment` TEXT NOT NULL,
-    `rating` INTEGER NOT NULL DEFAULT 0,
+    `like` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `userId` INTEGER NOT NULL,
     `postId` INTEGER NOT NULL,
@@ -31,6 +31,7 @@ CREATE TABLE `Profile` (
     `firstName` VARCHAR(255) NULL DEFAULT '',
     `lastName` VARCHAR(255) NULL DEFAULT '',
     `phone` VARCHAR(255) NULL DEFAULT '',
+    `Info` TEXT NULL DEFAULT '',
     `userId` INTEGER NOT NULL,
 
     UNIQUE INDEX `userId`(`userId`),
