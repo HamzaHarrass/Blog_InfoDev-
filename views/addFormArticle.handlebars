@@ -35,7 +35,7 @@
         </div>
         <nav>
           <ul>
-            <li> <a href='#' class='current-page'>Home</a> </li>
+            <li> <a href='/articles' class='current-page'>Home</a> </li>
             <li> <a href='#'>About Me</a> </li>
             <li> <a href='#'>Recent Posts</a> </li>
           </ul>
@@ -49,7 +49,7 @@
         <div class="form-container">
             <h1 class="mb-4 text-center">Ajouter un nouvel article de blog</h1>
 
-            <form action="/articles/add" method="post">
+            <form action="/articles/add" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Titre</label>
                     <input type="text" class="form-control custom-input" id="title" name="title" value placeholder="Entrez le titre du blog" required>
@@ -70,7 +70,7 @@
                     <input type="date" class="form-control custom-input" id="createdAt" name="createdAt" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block">Soumettre</button>
+                <button type="submit" class="btn btn-primary btn-block">send</button>
             </form>
         </div>
     </div>

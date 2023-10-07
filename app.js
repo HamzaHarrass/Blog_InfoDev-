@@ -1,5 +1,6 @@
-const express=require('express')
-const app = express()
+const express=require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
@@ -14,11 +15,15 @@ const hbs = create({ /* config */ });
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
 const PORT=process.env.PORT || 4000
+// Parse application/x-www-form-urlencoded and application/json
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 
 // Serve static files from the 'public' directory
 app.use('/styles', express.static(path.join(__dirname, 'views', 'public')));
+app.use('/uploadImage', express.static(path.join(__dirname, 'views', 'uploadImage')));
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');

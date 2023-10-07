@@ -2,6 +2,7 @@
 const express=require('express')
 // const bodyParser = require('body-parser')
 const router=express.Router()
+const uploadFile  = require('../helpers/multer'); // Import the helper function
 
 
 const {
@@ -17,10 +18,10 @@ const {
 
 
 
-router.get('/all',getAllArticle);
-router.post('/add',createArticle);
+// router.get('/all',getAllArticle);
+router.post('/add',uploadFile,createArticle);
 router.get('/form',formArticle);
-router.get('/', home);
+router.get('/', getAllArticle);
 router.get('/:id',getArticle);
 router.delete('/delete/:id',deleteArticle)
 router.put('/update/:id',updateArticle)
