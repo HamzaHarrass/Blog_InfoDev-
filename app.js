@@ -1,5 +1,5 @@
 const express=require('express')
-const app=express()
+const app = express()
 
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
@@ -17,11 +17,12 @@ const PORT=process.env.PORT || 4000
 
 
 
+// Serve static files from the 'public' directory
+app.use('/styles', express.static(path.join(__dirname, 'views', 'public')));
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
-
 
 app.use('/auth',authRouter)
 app.use('/articles',articlesRouter)

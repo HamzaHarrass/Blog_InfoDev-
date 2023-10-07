@@ -1,7 +1,14 @@
 const asyncHandler= require('express-async-handler')
 
+
+
 const createArticle=asyncHandler(async(req,res)=>{
-    
+
+    const { title, image, content, createdAt } = req.body;
+    console.log('Received form data:', { title, image, content, createdAt });
+
+
+
 }) 
 const updateArticle = asyncHandler(async (req, res) => {
     
@@ -33,6 +40,9 @@ const ratingArticle = asyncHandler(async (req, res) => {
 const home= (req,res)=>{
     res.render('home');
 }
+const formArticle = (req,res)=>{
+    res.render('addFormArticle')
+}
 
 
 module.exports={
@@ -41,6 +51,7 @@ module.exports={
     deleteArticle,
     getArticle,
     getAllArticle,
+    formArticle,
     Review,
     updateStatus,
     home,
