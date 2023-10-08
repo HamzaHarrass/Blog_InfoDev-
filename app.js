@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 
 
 
+
 // Serve static files from the 'public' directory
 app.use('/styles', express.static(path.join(__dirname, 'views', 'public')));
 app.use('/uploadImage', express.static(path.join(__dirname, 'views', 'uploadImage')));

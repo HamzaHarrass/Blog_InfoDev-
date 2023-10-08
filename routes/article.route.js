@@ -13,7 +13,8 @@ const {
     updateArticle,
     updateStatus,
     home,
-    formArticle
+    formArticle,
+    editArticle
 }=require('../controllers/articleController')
 
 
@@ -23,8 +24,9 @@ router.post('/add',uploadFile,createArticle);
 router.get('/form',formArticle);
 router.get('/', getAllArticle);
 router.get('/:id',getArticle);
+router.get('/edit/:id',editArticle);
+router.post('/update',uploadFile,updateArticle)
 router.delete('/delete/:id',deleteArticle)
-router.put('/update/:id',updateArticle)
 router.put('/status/:id',updateStatus)
 
 

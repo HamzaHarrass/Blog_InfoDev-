@@ -20,9 +20,9 @@
         </div>
         <nav>
           <ul>
-            <li> <a href='#' class='current-page'>Home</a> </li>
-            <li> <a href='#'>About Me</a> </li>
-            <li> <a href='#'>Recent Posts</a> </li>
+            <li> <a href='/articles' class='current-page'>Home</a> </li>
+            <li> <a href=''>About Me</a> </li>
+            <li> <a href=''>Recent Posts</a> </li>
           </ul>
         </nav>
       </div>
@@ -34,15 +34,15 @@
 
             <main role="main">
                 <div class=" w-75 d-flex justify-content-end" >
-                        <button type="button" class="btn btn-outline-info" ><a href="articles/form">New article</a></button>
+                        <button type="button" class="btn btn-outline-info" ><a href="/articles/form">New article</a></button>
                 </div>
                 {{#each articles}}
                 <article class="article-featured">
                     <h2 class="article-title">{{title}}</h2>
                     <img src="uploadImage/{{picture}}"alt="{{picture}}" class="article-image">
                     <p class="article-info">{{createdAt}} | 3 comments</p>
-<p class="article-body">{{content}}</p>
-                    <a href="#" class="article-read-more">CONTINUE READING</a>
+                    <p class="article-body">{{content}}</p>
+                    <a href="/articles/{{id}}" class="article-read-more">CONTINUE READING</a>
                 </article>
                     {{/each}}
 
