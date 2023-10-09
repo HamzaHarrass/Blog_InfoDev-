@@ -14,20 +14,25 @@ const {
     updateStatus,
     home,
     formArticle,
-    editArticle
+    editArticle,
+    addComment,
+    Review
 }=require('../controllers/articleController')
 
 
 
 // router.get('/all',getAllArticle);
-router.post('/add',uploadFile,createArticle);
+router.post('/add',createArticle);
 router.get('/form',formArticle);
-router.get('/', getAllArticle);
-router.get('/:id',getArticle);
+router.get('/', getAllArticle,);
+router.get('/:id',getArticle,Review);
 router.get('/edit/:id',editArticle);
-router.post('/update',uploadFile,updateArticle)
-router.delete('/delete/:id',deleteArticle)
+router.post('/update',updateArticle)
+router.get('/delete/:id',deleteArticle)
 router.put('/status/:id',updateStatus)
+router.post('/addcomment',addComment )
+router.post('/getAllcomment',Review )
+
 
 
 module.exports=router

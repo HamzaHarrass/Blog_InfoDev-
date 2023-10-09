@@ -1,9 +1,13 @@
 const { PrismaClient } = require('@prisma/client');
 const Prisma = new PrismaClient();
+const flash = require('connect-flash');
+const multer = require('multer');
+
+
 
 
 const asyncHandler= require('express-async-handler');
-const uploadFile = require('../helpers/multer'); // Import the helper function
+const upload = require('../helpers/multer'); // Import the helper function
 
 const createArticle=asyncHandler(async(req,res)=>{
     const { title, content, createdAt } = req.body;
@@ -44,25 +48,79 @@ const editArticle = asyncHandler(async (req,res)=>{
 
 });
 const updateArticle = asyncHandler(async (req, res) => {
+console.log(req.file);    
+    upload.single('image')(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            // A Multer error occurred (e.g., file too large, unsupported file type)
+            return res.status(400).json(err.message)
+        } else if (err) {
+            // An unknown error occurred
+            return res.status(500).json(err.message)
+        }
+        // No errors occurred, and a file was uploaded successfully
+        console.log('File uploaded:', req.file);
+        console.log('Form data:', req.body);
+        
+        // Continue processing the request using req.file and req.body
+        
+        // Your logic here...
+    });
+   
 
-    const { id, lastimage, title, content, createdAt } = req.body;
-    const imagepath = req.file;
+ 
+
+
+
+
+
+
+
+
     
-    if(!imagepath){
-        console.log(imagepath);
+//     const { id, lastimage, title, content, createdAt } = req.body;
+//     const imagepath = req.file;
+//     console.log(imagepath);
 
-    }else{
-        console.log({ id, lastimage ,title,  content, createdAt });
 
-    }
+//     if(!imagepath){
+//         console.log(imagepath);
 
-try {
+//     }else{
+//         console.log({ id, lastimage ,title,  content, createdAt });
+
+//     }
+
+// try {
     
-} catch (error) {
+// } catch (error) {
     
-}    
+// }    
 });
 const deleteArticle = asyncHandler(async (req, res) => {
+
+    const  articleId = Number(req.params.id);
+        console.log(articleId);
+
+    try {
+
+        const deleteArticle = await Prisma.Post.delete({
+            where : {
+                id: articleId,
+            },
+        })
+
+        if (deleteArticle) {
+            req.flash('success', 'Article deleted successfully.');
+        } else {
+            req.flash('error', 'Article not found or could not be deleted.');
+        }
+
+        // Redirect to articles page or any other appropriate page
+        res.redirect('/articles');
+    } catch (error) {
+        req.flash('error', 'Error deleting article: ' + error.message);
+        res.redirect('/articles'); // Redirect to articles page or any other appropriate page
+    }
     
 });
 const getArticle = asyncHandler(async (req, res) => {
@@ -75,6 +133,7 @@ const getArticle = asyncHandler(async (req, res) => {
             
         });
         // res.status(200).json(article)
+
         res.render('article' ,  { Article: article })
         // console.log(Article);
         
@@ -101,13 +160,47 @@ const getAllArticle = asyncHandler(async (req, res) => {
     
 });
 const Review = asyncHandler(async (req, res) => {
-    
+    const { Idarticle } = req.body; // Destructure Idarticle from req.body
+    console.log('thid is ', Idarticle);
+    try {
+        const getAllcomment = await Prisma.Review.findMany({
+            where: {
+                postId: parseInt(Idarticle), // Use Idarticle in the where clause after parsing it to an integer
+            }
+        });
+        console.log(getAllcomment);
+        res.status(200).json({ getAllcomment });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
 const updateStatus = asyncHandler(async (req, res) => {
 
 });
 const addComment = asyncHandler(async (req, res) => {
-    
+    const { comment, Idarticle } = req.body;
+    console.log('Comment:', comment);
+    console.log('Idarticle:', Idarticle);     
+    try {
+
+        const newComment = {
+            comment: comment,
+            userId: 1,
+            postId: parseInt(Idarticle),
+            }
+        const addnewComment = await Prisma.Review.create({
+            data : newComment,
+        });
+
+        // Send a success response back to the client with the newly created comment
+        res.status(201).json({ message: 'Comment added successfully', comment: addnewComment });
+    } catch (error) {
+        // Handle any errors that occur during the creation of the comment
+        console.log(error.message);
+        res.status(500).json({ message: error.message});
+    }
 });
 const deleteComment = asyncHandler(async (req, res) => {
     

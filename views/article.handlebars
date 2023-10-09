@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="/styles/article.css">
     <link rel="stylesheet" href="/styles/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
  <body>
@@ -38,52 +37,59 @@
                 </div> --}}
                 {{!-- <input type="number" hidden value="{{id}}"> --}}
                 <article class="article-featured">
+                    <input type="number"  hidden id="articleid" value="{{Article.id}}">
                     <h2 class="article-title">{{Article.title}}</h2>
                     <img src="/uploadImage/{{Article.picture}}"alt="{{Article.picture}}" class="article-image">
-                    <p class="article-info">{{Article.createdAt}}| 3 comments</p>
-                    <p class="article-body">{{Article.content}}</p>
-                    <a href="#" class="article-read-more">comments</a>
-                    <a href="/articles/edit/{{Article.id}}" class="article-read-more">Edit</a>
-                    <a href="/articles/delete/{{Article.id}}" class="article-read-more">Edit</a>
+                    <p class="article-info">{{Article.createdAt}} | 3 comments</p>
+                    <p class="article-body container mt-5 ">{{Article.content}} </p> 
+                     <a href="/articles/edit/{{Article.id}}" class="article-read-more"><i class="fa-solid fa-pen-to-square fs-4 me-2"></i></a>
+                   <a href="/articles/delete/{{Article.id}}" class="article-read-more"><i class="fa-solid fa-trash  text-danger fs-4"></i></a>
+                </article> 
+                    <i class="fa-solid fa-comment text-dark fs-4 me-2"></i>
+                    <span class="article-info fs-4"> | comments</span>
+                   
 
-
-                </article>                                
-                {{!-- <article class="article-recent">
-                    <div class="article-recent-main">
-                        <h2 class="article-title">Keeping cooking simple </h2>
-                        <p class="article-body">Food is a very important part of everyone's life. If you want to be healthy, you have to eat healthy. One of the easiest ways to do that is to keep your cooking nice and simple.</p>
-                        <a href="#" class="article-read-more">CONTINUE READING</a>
+   <div class="row d-flex justify-content-center mt-5">
+                <div class="col-12 ">
+                    <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+                        <div class="card-body p-4">
+                            <div class="form-outline mb-4">
+                            <div class=" w-100 d-flex justify-content-end" >
+                                <button type="submit" id="submit_comment"class="btn btn-outline-info" > + Add Comment</button>
+                             </div>                         
+                                <label class="form-label" for="addANote">comment</label>  
+                                <input type="text" id="addANote"  class="form-control" placeholder="Type comment..." />
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <p class="newcomment">Type your note, and hit enter to add it</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25" height="25" />
+                                            <p class="small mb-0 ms-2">Martha</p>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center">
+                                             <p class="small mb-0" style="color: #aaa;">
+                                                <a href="#!" class="link-grey">Remove</a> •
+                                            </p>    
+                                            <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                            <p class="small text-muted mb-0">3</p>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="article-recent-secondary">
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/food.jpg" alt="two dumplings on a wood plate with chopsticks" class="article-image">
-                        <p class="article-info">July 19, 2019 | 3 comments</p>
-                    </div>
-                </article>
-                
-                <article class="article-recent">
-                    <div class="article-recent-main">
-                        <h2 class="article-title">Simplicity and work </h2>
-                        <p class="article-body">Work is often a major source of stress. People get frustrated, it ruins their relationship with others and it leads to burnout. By keeping your work life as simple as possible, it will help balance everything out.</p>
-                        <a href="#" class="article-read-more">CONTINUE READING</a>
-                    </div>
-                    <div class="article-recent-secondary">
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/work.jpg" alt="a chair white chair at a white desk on a white wall" class="article-image">
-                        <p class="article-info">July 12, 2019 | 3 comments</p>
-                    </div>
-                </article>
-                
-                <article class="article-recent">
-                    <div class="article-recent-main">
-                        <h2 class="article-title">Simple decorations</h2>
-                        <p class="article-body">A home isn't a home until you've decorated a little. People either don't decorate, or they go overboard and it doesn't have the impact they were hoping for. Staying simple will help draw the eye where you want it to and make things pop like never before.</p>
-                        <a href="#" class="article-read-more">CONTINUE READING</a>
-                    </div>
-                    <div class="article-recent-secondary">
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/work.jpg" alt="a green plant in a clear, round vase with water in it" class="article-image">
-                        <p class="article-info">July 3, 2019 | 3 comments</p>
-                    </div>
-                </article> --}}
+                </div>
+            </div>  
             </main>
+
+                                      
+           
+
+
+
             
             <aside class="sidebar">
                 
@@ -122,7 +128,128 @@
     </footer>
     <!-- footer ends -->
     
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
+
+  </body>
+  <script>
+    // Make a GET request to a URL
+        const commentInput = document.getElementById('addANote');
+        const articleId = document.getElementById('articleid');
+        const cardBody = document.querySelector('.card-body'); // Select the card-body element to append comments
+        const subComment = document.getElementById('submit_comment');
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // Your code here will run after the DOM is fully loaded
+    fetchAndDisplayComments(); // Call your function here to execute it when the DOM is loaded
+});
+    // Your JavaScript function here
+          // Function to fetch and display comments
+        function fetchAndDisplayComments() {
+
+            const idArticle = articleId.value;
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body : JSON.stringify({ 
+                            Idarticle : idArticle,
+                            })
+            };
+
+            fetch('/articles/getAllcomment', requestOptions)
+                .then(response => response.json())
+                .then(comments => {
+
+                    // Loop through the comments and create HTML elements for each comment
+                    comments.getAllcomment.forEach(comment => {
+                        const commentDiv = document.createElement('div');
+                        commentDiv.className = 'card card-body';
+                        commentDiv.innerHTML = `
+                           <p class="newcomment">${comment.comment}</p>
+                        <!-- Rest of your HTML structure here -->
+                         <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25" height="25" />
+                                            <p class="small mb-0 ms-2">Martha</p>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center">
+                                             <p class="small mb-0" style="color: #aaa;">
+                                                <a href="#!" class="link-grey">Remove</a> •
+                                            </p>    
+                                            <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                            <p class="small text-muted mb-0">3</p>
+                                            
+                                        </div>
+                                    </div>
+                    `;
+                        cardBody.appendChild(commentDiv); // Append each comment inside the card-body element
+                    });
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                });
+}
+
+    
+    
+  
+    
+
+        subComment.addEventListener('click',()=> {
+
+            const commentText = commentInput.value;
+            const idArticle = articleId.value;
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    comment: commentText ,
+                    Idarticle : idArticle,
+                    })
+            };
+
+            fetch('/articles/addcomment', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("this data for comment", data.comment.id)
+               // Create new comment elements
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'card card-body';
+                    commentDiv.innerHTML = `
+                        <p class="newcomment">${data.comment.comment}</p>
+                        <!-- Rest of your HTML structure here -->
+                         <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25" height="25" />
+                                            <p class="small mb-0 ms-2">Martha</p>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center">
+                                             <p class="small mb-0" style="color: #aaa;">
+                                                <a href="#!" class="link-grey">Remove</a> •
+                                            </p>    
+                                            <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                            <p class="small text-muted mb-0">3</p>
+                                            
+                                        </div>
+                                    </div>
+                    `;
+
+                    // Append the new comment inside the card-body element
+                    cardBody.appendChild(commentDiv);  
+                 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+      
+
+// Call the function to fetch and display comments when the page is loaded
+       
+
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </html>

@@ -33,6 +33,11 @@
     <div class="container container-flex">
 
             <main role="main">
+        {{#if messages.success}}
+            <div class="alert alert-danger">
+        {{messages.success}}
+            </div>
+        {{/if}}
                 <div class=" w-75 d-flex justify-content-end" >
                         <button type="button" class="btn btn-outline-info" ><a href="/articles/form">New article</a></button>
                 </div>
