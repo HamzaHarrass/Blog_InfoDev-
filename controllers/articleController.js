@@ -17,7 +17,7 @@ const createArticle = asyncHandler(async (req, res) => {
       published: true,
       authorId: 1,
     };
-    const createdArticle = await Prisma.Post.create({
+    const createdArticle = await Prisma.post.create({
       data: newarticle,
     });
     res.redirect("/articles");
@@ -28,7 +28,7 @@ const createArticle = asyncHandler(async (req, res) => {
 
 const editArticle = asyncHandler(async (req, res) => {
   const articleId = Number(req.params.id);
-  const getdataArticle = await Prisma.Post.findUnique({
+  const getdataArticle = await Prisma.post.findUnique({
     where: {
       id: articleId,
     },
@@ -43,41 +43,64 @@ const editArticle = asyncHandler(async (req, res) => {
 const updateArticle = asyncHandler(async (req, res) => {
   console.log(req.file);
   console.log(req.body);
-
   const { id, lastimage, title, content, createdAt } = req.body;
-
   if (req.file === undefined) {
-
-
       try {
-        
+          const updateArticle = await Prisma.post.update({
+
+              where: {
+                  id: Number(id),
+              },
+              data: {
+                  title: title,
+                  content: content,
+                  createdAt: new Date(createdAt),
+              },
+          });
+
+          res.redirect('/articles/'+id);
 
 
+
+          
           console.log("Article updated without changing the image");
           res.status(200).json({ message: "Article updated without changing the image" });
       } catch (error) {
           console.error(error.message);
-          res.status(500).json({ error: "Internal Server Error" });
       }
   } else {
       try {
-          
+          const updateArticle = await Prisma.post.update({
+              where: {
+                  id: Number(id),
+              },
+              data: {
+                  title: title,
+                  content: content,
+                  picture: req.file.filename,
+                  createdAt: new Date(createdAt),
+              },
+          });
+
+          res.redirect('/articles/'+id);
+
+
+
           console.log("Article updated with a new image");
+
           res.status(200).json({ message: "Article updated with a new image" });
       } catch (error) {
           console.error(error.message);
-          res.status(500).json({ error: "Internal Server Error" });
       }
   }
+  
 });
-
-
 const deleteArticle = asyncHandler(async (req, res) => {
   const articleId = Number(req.params.id);
   console.log(articleId);
 
   try {
-    const deleteArticle = await Prisma.Post.delete({
+    const deleteArticle = await Prisma.post.delete({
       where: {
         id: articleId,
       },

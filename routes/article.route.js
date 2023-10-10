@@ -23,12 +23,12 @@ const {
 
 
 // router.get('/all',getAllArticle);
-router.post('/add',uploadfile,createArticle);
+router.post('/add',uploadFile,createArticle);
 router.get('/form',formArticle);
 router.get('/', getAllArticle,);
-router.get('/:id',getArticle,Review);
+router.get('/:id',getArticle);
 router.get('/edit/:id',editArticle);
-router.post('/update',uploadfile,updateArticle)
+router.post('/update',uploadFile,updateArticle)
 router.get('/delete/:id',deleteArticle)
 router.put('/status/:id',updateStatus)
 router.post('/addcomment',addComment )

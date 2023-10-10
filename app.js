@@ -17,7 +17,7 @@ const hbs = create({ /* config */ });
 
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
-const PORT=process.env.PORT || 3100
+const PORT=process.env.PORT || 3011
 // Parse application/x-www-form-urlencoded and application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -48,9 +48,9 @@ app.set('views', './views');
 
 app.use('/auth',authRouter)
 app.use('/articles',articlesRouter)
-app.use('/user',userRouter)
+app.use('/profile',userRouter)
 
-
+app.use(express.static(path.join(__dirname, "views/public")));
 
 
 
