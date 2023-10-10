@@ -9,12 +9,14 @@ const {
     forgetPassword,
     resetPassword,
     updatePassword,
+    templetLogin
 }=require('../controllers/authController')
 
 
 router.get('/logout',logout);
 router.post('/register',register);
-router.get('/login', login);
+router.get('/login', templetLogin);
+router.post('/login',login);
 router.get('/reset-password', resetPassword);
 router.post('/changePassword',updatePassword)
 
