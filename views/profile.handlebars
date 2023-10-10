@@ -1,5 +1,5 @@
 
-    <div class="w-full bg-red-300 h-12  py-0 px-5 flex items-center justify-between">
+        <div class="w-full bg-red-300 h-12  py-0 px-5 flex items-center justify-between">
         <ul class="flex items-center gap-3">
             <li>
                 <a href="/profile">Profile</a>
@@ -38,51 +38,54 @@
                     <ul class="p-4 flex flex-col gap-2">
                         <li class="flex items-center gap-3">
                             <span>firstName:</span>
-                            <span class="font-bold">{{profile.firstname}}</span>
+                            <span class="font-bold">{{user.Profile.firstName}}</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span>lastName:</span>
-                            <span class="font-bold">{{profile.lastname}}</span>
+                            <span class="font-bold">{{user.Profile.lastName}}</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span>Email:</span>
-                            <span class="font-bold">{{profile.email}}</span>
+                            <span class="font-bold">{{user.email}}</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span>Phone Number:</span>
-                            <span class="font-bold">{{profile.phone}}</span>
+                            <span class="font-bold">{{user.Profile.phone}}</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span>Info:</span>
-                            <span class="font-bold">{{profile.info}}</span>
+                            <span class="font-bold">{{user.Profile.Info}}</span>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class=" my-5">
-                <button class=" border border-gray-400 rounded-md text-gray-500 px-3 py-1 text-sm hover:scale-95 transition ">
-                    Edit Profile
-                </button>
-                <form>
+                
+                <form method="post" action="http://localhost:3000/profile/{{user.id}}">
+                    <button 
+                    type="submit"
+                    class=" border border-gray-400 rounded-md text-gray-500 px-3 py-1 text-sm hover:scale-95 transition ">
+                        Edit Profile
+                    </button>
                     <div class="flex gap-2 m-4">
                         <div class="border rounded-md w-[40%] overflow-hidden">
-                            <input type="text" placeholder="firstName" class="w-full h-full outline-none border-none px-4 py-3" />
+                            <input value="{{user.Profile.firstName}}" name="firstName" type="text" placeholder="firstName" class="w-full h-full outline-none border-none px-4 py-3" />
                         </div>
                         <div class="border rounded-md w-[40%] overflow-hidden">
-                            <input type="text" placeholder="firstName" class="w-full h-full outline-none border-none px-4 py-3" />
+                            <input value="{{user.Profile.lastName}}" name="lastName" type="text" placeholder="lastName" class="w-full h-full outline-none border-none px-4 py-3" />
                         </div>
                     </div>
                     <div class="flex gap-2 m-4">
                         <div class="border rounded-md w-[40%] overflow-hidden">
-                            <input type="text" placeholder="firstName" class="w-full h-full outline-none border-none px-4 py-3" />
+                            <input value="{{user.Profile.phone}}" type="text" name="phone" placeholder="phone number" class="w-full h-full outline-none border-none px-4 py-3" />
                         </div>
                         <div class="border rounded-md w-[40%] overflow-hidden">
-                            <input type="text" placeholder="firstName" class="w-full h-full outline-none border-none px-4 py-3" />
+                            <input value="{{user.email}}" type="text" name="email" placeholder="email" class="w-full h-full outline-none border-none px-4 py-3" />
                         </div>
                     </div>
                     <div class="flex gap-2 m-4">
-                        <textarea class="border rounded-md w-[81%] h-36 overflow-hidden outline-none ">
-
+                        <textarea name="Info" class="border rounded-md w-[81%] h-36 overflow-hidden outline-none ">
+                            {{user.Profile.Info}}
                         </textarea>
                     </div>
                 </form>
@@ -96,3 +99,7 @@
     <div class="w-full h-12 bg-green-300 py-0 px-5 flex items-center justify-center">
         <p>Footer</p>
     </div>
+     <script src="https://cdn.tailwindcss.com"></script>
+    </body> 
+
+</html>

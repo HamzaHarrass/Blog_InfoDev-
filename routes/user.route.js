@@ -17,7 +17,7 @@ router.get('/all',getAllUsers);
 router.get('/:id',getUser);
 router.delete('/:id',deleteUser)
 router.put('/status/:id',statusUser)
-router.put('/profile/:id',updateProfile)
+router.post('/:id',updateProfile)
 router.post('/updatePicture',updateProfilePic)
 
 

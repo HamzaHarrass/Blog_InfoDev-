@@ -4,7 +4,7 @@ const {PrismaClient}=require('@prisma/client')
 
 
 const getUser =async (req, res) => {
-     let profile={}
+    
     //get user by params id and get from database using prisma orm
      const {id}=req.params
      const prisma=new PrismaClient()
@@ -12,11 +12,9 @@ const getUser =async (req, res) => {
      const user=await prisma.user.findUnique({
           where:{
                id:Number(id)
-          }
-     })
-     const userDetails=await prisma.profile.findUnique({
-          where:{
-               userId:Number(id)
+          },
+          include:{
+               Profile:true
           }
      })
      
@@ -26,17 +24,9 @@ const getUser =async (req, res) => {
                message:"User not found"
           })
      }
-     profile.name=user.name
-     profile.email=user.email
-     //get password from user and dcrypt it
-     profile.picture=userDetails.picture
-     profile.firstname=userDetails.firstName
-     profile.lastname=userDetails.lastName
-     profile.phone=userDetails.phone
-     profile.info=userDetails.Info
      //if user found then send user data
-     console.log(profile)
-     res.render('profile',{profile});
+     console.log(user)
+     res.render('profile',{user});
 };
 const getAllUsers = asyncHandler(async (req, res) => {
      const prisma=new PrismaClient()
@@ -68,15 +58,20 @@ const statusUser = asyncHandler(async (req, res) => {
     
 });
 const updateProfile = asyncHandler(async (req, res) => {
-    const {id}=req.user
+     console.log('profile')
+     console.log(req.body)
+    const {id}=req.params
     const prisma=new PrismaClient()
      try{ 
-          const updateUser=await prisma.user.update({
+          const updateUser=await prisma.profile.update({
                where:{
-                    id:Number(id)
+                    userId:Number(id)
                },
                data:{
-                    ...req.body
+                    //all req.body fields except email
+                    firstName:req.body.firstName,
+                    lastName:req.body.lastName,
+                    
                }
           })
           //check all fields change old value with new value
