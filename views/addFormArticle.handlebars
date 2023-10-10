@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/article.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+ <style>
+      .form-container {
+            max-width: 70%;
+            margin-bottom: ;
+            margin: 2rem auto;
+            padding: 30px;
+         background: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-input {
+            border-radius: 25px;
+        }
+    </style>
+
+    <title>Document</title>
+
+</head>
+ <body>
+    <!-- header starts -->
+    <header>
+      <div class='container container-flex'>
+        <div class='site-title'>
+          <h1>Living The Social Life</h1>
+          <p class='subtitle'>A blog exploring minimalism in life.</p>
+        </div>
+        <nav>
+          <ul>
+            <li> <a href='/articles' class='current-page'>Home</a> </li>
+            <li> <a href='#'>About Me</a> </li>
+            <li> <a href='#'>Recent Posts</a> </li>
+          </ul>
+        </nav>
+      </div>
+    </header> 
+    <!-- header ends -->
+
+    <body>
+    <div class="container mt-5">
+        <div class="form-container">
+            <h1 class="mb-4 text-center">Ajouter un nouvel article de blog</h1>
+
+            <form action="/articles/add" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titre</label>
+                    <input type="text" class="form-control custom-input" id="title" name="title" value placeholder="Entrez le titre du blog" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">URL de l'image</label>
+                    <input type="file" class="form-control custom-input" id="image" name="image" placeholder="Entrez  de l'image" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="content" class="form-label">Contenu</label>
+                    <textarea class="form-control custom-input" id="content" rows="6" name="content" placeholder="Entrez le contenu du blog" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="createdAt" class="form-label">Date de création</label>
+                    <input type="date" class="form-control custom-input" id="createdAt" name="createdAt" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">send</button>
+            </form>
+        </div>
+    </div>
+    <!-- footer starts -->
+    <footer class="" >
+      <p><strong>Living the Simple Life</strong></p>
+      <p>Copyright 2021, <a href= target='_blank'>meeeeeee</a></p>   
+    </footer>
+    <!-- footer ends -->
+    
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</html>
+
+
+
