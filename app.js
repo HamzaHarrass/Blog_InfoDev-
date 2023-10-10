@@ -1,5 +1,6 @@
 const express=require('express')
 const app=express()
+const bodyParser = require('body-parser');
 
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
@@ -15,9 +16,11 @@ const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
 const PORT=process.env.PORT || 4000
 
+app.use('/styles', express.static(path.join(__dirname, 'views', 'public')));
 
 
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');

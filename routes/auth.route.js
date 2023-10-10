@@ -14,8 +14,8 @@ const {
 
 router.get('/logout',logout);
 router.post('/register',register);
-router.post('/login',login);
-router.post('sendResetPasswordCode',resetPassword)
+router.get('/login', login);
+router.get('/reset-password', resetPassword);
 router.post('/changePassword',updatePassword)
 
 module.exports=router
