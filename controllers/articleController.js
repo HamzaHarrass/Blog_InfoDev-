@@ -1,10 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const Prisma = new PrismaClient();
 const flash = require("connect-flash");
-const multer = require("multer");
 
 const asyncHandler = require("express-async-handler");
-const upload = require("../helpers/multer"); // Import the helper function
 
 const createArticle = asyncHandler(async (req, res) => {
   const { title, content, createdAt } = req.body;
@@ -41,43 +39,38 @@ const editArticle = asyncHandler(async (req, res) => {
 
   res.render("editFormArticle", { article: { getdataArticle, formattedDate } });
 });
+
 const updateArticle = asyncHandler(async (req, res) => {
   console.log(req.file);
-  upload.single("image")(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      // A Multer error occurred (e.g., file too large, unsupported file type)
-      return res.status(400).json(err.message);
-    } else if (err) {
-      // An unknown error occurred
-      return res.status(500).json(err.message);
-    }
-    // No errors occurred, and a file was uploaded successfully
-    console.log("File uploaded:", req.file);
-    console.log("Form data:", req.body);
+  console.log(req.body);
 
-    // Continue processing the request using req.file and req.body
+  const { id, lastimage, title, content, createdAt } = req.body;
 
-    // Your logic here...
-  });
+  if (req.file === undefined) {
 
-  //     const { id, lastimage, title, content, createdAt } = req.body;
-  //     const imagepath = req.file;
-  //     console.log(imagepath);
 
-  //     if(!imagepath){
-  //         console.log(imagepath);
+      try {
 
-  //     }else{
-  //         console.log({ id, lastimage ,title,  content, createdAt });
-
-  //     }
-
-  // try {
-
-  // } catch (error) {
-
-  // }
+          
+          console.log("Article updated without changing the image");
+          res.status(200).json({ message: "Article updated without changing the image" });
+      } catch (error) {
+          console.error(error.message);
+          res.status(500).json({ error: "Internal Server Error" });
+      }
+  } else {
+      try {
+          
+          console.log("Article updated with a new image");
+          res.status(200).json({ message: "Article updated with a new image" });
+      } catch (error) {
+          console.error(error.message);
+          res.status(500).json({ error: "Internal Server Error" });
+      }
+  }
 });
+
+
 const deleteArticle = asyncHandler(async (req, res) => {
   const articleId = Number(req.params.id);
   console.log(articleId);
@@ -135,7 +128,6 @@ const Review = asyncHandler(async (req, res) => {
         postId: parseInt(Idarticle), // Use Idarticle in the where clause after parsing it to an integer
       },
     });
-    console.log(getAllcomment);
     res.status(200).json({ getAllcomment });
   } catch (error) {
     console.log(error.message);

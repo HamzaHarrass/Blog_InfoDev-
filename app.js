@@ -5,7 +5,6 @@ const flash = require('express-flash');
 const session = require('express-session');
 
 
-
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
 const articlesRouter=require('./routes/article.route')
@@ -18,7 +17,7 @@ const hbs = create({ /* config */ });
 
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
-const PORT=process.env.PORT || 3000
+const PORT=process.env.PORT || 5000
 // Parse application/x-www-form-urlencoded and application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

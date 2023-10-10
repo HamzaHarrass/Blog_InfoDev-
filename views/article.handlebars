@@ -163,7 +163,7 @@
                     // Loop through the comments and create HTML elements for each comment
                     comments.getAllcomment.forEach(comment => {
                         const commentDiv = document.createElement('div');
-                        commentDiv.className = 'card card-body';
+                        commentDiv.className = ' mb-4 card card-body';
                         commentDiv.innerHTML = `
                            <p class="newcomment">${comment.comment}</p>
                         <!-- Rest of your HTML structure here -->
@@ -211,7 +211,7 @@
             fetch('/articles/addcomment', requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("this data for comment", data.comment.id)
+                  //  console.log("this data for comment", data.comment.id)
                // Create new comment elements
                     const commentDiv = document.createElement('div');
                     commentDiv.className = 'card card-body';
@@ -236,12 +236,13 @@
 
                     // Append the new comment inside the card-body element
                     cardBody.appendChild(commentDiv);  
-                    commentInput.value = "";
                  
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
+                commentInput.value = "";
+
         });
 
       
