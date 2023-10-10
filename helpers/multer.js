@@ -13,6 +13,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-module.exports = upload; // 'image' is the name attribute of the file input field
+module.exports = upload.single('image'); // 'image' is the name attribute of the file input field
 
 

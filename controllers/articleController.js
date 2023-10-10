@@ -43,22 +43,8 @@ const editArticle = asyncHandler(async (req, res) => {
 });
 const updateArticle = asyncHandler(async (req, res) => {
   console.log(req.file);
-  upload.single("image")(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      // A Multer error occurred (e.g., file too large, unsupported file type)
-      return res.status(400).json(err.message);
-    } else if (err) {
-      // An unknown error occurred
-      return res.status(500).json(err.message);
-    }
-    // No errors occurred, and a file was uploaded successfully
-    console.log("File uploaded:", req.file);
-    console.log("Form data:", req.body);
-
-    // Continue processing the request using req.file and req.body
-
-    // Your logic here...
-  });
+  console.log(req.body);
+  
 
   //     const { id, lastimage, title, content, createdAt } = req.body;
   //     const imagepath = req.file;
