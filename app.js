@@ -49,9 +49,9 @@ app.set('views', './views');
 
 app.use('/auth',authRouter)
 app.use('/articles',articlesRouter)
-app.use('/user',userRouter)
+app.use('/profile',userRouter)
 
-
+app.use(express.static(path.join(__dirname, "views/public")));
 
 
 
