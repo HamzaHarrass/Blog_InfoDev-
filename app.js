@@ -17,7 +17,7 @@ const hbs = create({ /* config */ });
 
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
-const PORT=process.env.PORT || 5000
+const PORT=process.env.PORT || 3100
 // Parse application/x-www-form-urlencoded and application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

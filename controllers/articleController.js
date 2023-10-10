@@ -50,8 +50,9 @@ const updateArticle = asyncHandler(async (req, res) => {
 
 
       try {
+        
 
-          
+
           console.log("Article updated without changing the image");
           res.status(200).json({ message: "Article updated without changing the image" });
       } catch (error) {
