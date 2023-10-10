@@ -17,6 +17,7 @@ const { notFound, errorHandler } = require('./middleware/errorHandler')
 const PORT=process.env.PORT || 4000
 
 app.use('/styles', express.static(path.join(__dirname, 'views', 'public')));
+app.use('/uploadImage', express.static(path.join(__dirname, 'views', 'uploadImage')));
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,11 +27,12 @@ app.set('view engine', 'handlebars');
 app.set('views', './views');
 
 
+
 app.use('/auth',authRouter)
 app.use('/articles',articlesRouter)
-app.use('/user',userRouter)
+app.use('/profile',userRouter)
 
-
+app.use(express.static(path.join(__dirname, "views/public")));
 
 
 

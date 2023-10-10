@@ -35,7 +35,7 @@ const login = asyncHandler(async (req, res) => {
 
         if (passwordMatch) {
             // Authentication successful, you can manage the user session here if needed
-            return res.redirect("/"); // Redirect after successful login
+            return res.redirect("/articles"); // Redirect after successful login
         } else {
             return res.status(401).send("Email ou mot de passe incorrect.");
         }
@@ -75,7 +75,7 @@ const register = asyncHandler(async (req, res) => {
             },
         });
 
-        res.status(201).redirect("/"); // Redirect after successful registration
+        res.status(201).redirect("/articles"); // Redirect after successful registration
     } catch (error) {
         console.error(error);
         return res.status(500).send("Une erreur s'est produite lors de l'inscription.");
