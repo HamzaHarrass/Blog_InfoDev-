@@ -1,8 +1,8 @@
 
-        <div class="w-full bg-red-300 h-12  py-0 px-5 flex items-center justify-between">
+        <div class="w-full bg-white shadow-lg h-12  py-0 px-5 flex items-center justify-between">
         <ul class="flex items-center gap-3">
             <li>
-                <a href="/profile">Profile</a>
+                <a href="/">Blog</a>
             </li>
             <li>
                 <a href="/profile/settings">Settings</a>
@@ -19,7 +19,7 @@
                src="https://via.placeholder.com/35" 
                alt="profile picture" 
             />
-            <p>mugiwara</p>
+            <p>{{user.name}}</p>
         </div>
     </div>
     <!--body -->
@@ -37,14 +37,14 @@
                         {{!-- <img 
                             class=" rounded-full w-full"  src="" alt="profile picture" /> --}}
                            
-                            <input type="file" id="profile-picture" name="image"  class="mt-1 mb-4 p-2 border rounded-md">
+                            <input type="file" id="profile-picture" name="image"  class=" mt-12 mb-4 p-2 border rounded-md">
 
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">edit</button>
                     
                     </form>
                 </div>
                 <div class="w-[79%] ">
-                    <h2 class="text-2xl font-bold">Mustapha Bousil</h2>
+                    <h2 class="text-2xl font-bold">{{user.name}}</h2>
                     <ul class="p-4 flex flex-col gap-2">
                         <li class="flex items-center gap-3">
                             <span>firstName:</span>
@@ -71,7 +71,7 @@
             </div>
             <div class=" my-5">
                 
-                <form method="post" action="http://localhost:3000/profile/{{user.id}}">
+                <form method="post" action="http://localhost:4000/profile">
                     <button 
                     type="submit"
                     class=" border border-gray-400 rounded-md text-gray-500 px-3 py-1 text-sm hover:scale-95 transition ">
@@ -101,12 +101,21 @@
                 </form>
             </div>
         </div>
-        <div class="lg:w-[34%] hidden lg:flex bg-red-700">
-
+        <div class="lg:w-[34%] hidden lg:flex bg-white shadow-md overflow-y-scroll">
+            <ul class="w-full">
+                {{#each user.Post}}
+                <li class=" flex p-3 flex-col items-center">
+                    <span class=" text-xl">{{title}}</span>
+                    <span><img src="uploadImage/{{picture}}"alt="{{picture}}" class="article-image"></span>
+                    <span>{{createdAt}}</span>
+                </li>
+                <hr>
+                {{/each}}
+            </ul>
         </div>
     </div>
     <!--footer -->
-    <div class="w-full h-12 bg-green-300 py-0 px-5 flex items-center justify-center">
+    <div class="w-full h-12  bg-blue-950 text-white py-0 px-5 flex items-center justify-center">
         <p>Footer</p>
     </div>
      <script src="https://cdn.tailwindcss.com"></script>

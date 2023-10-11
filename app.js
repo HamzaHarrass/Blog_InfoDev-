@@ -5,14 +5,19 @@ const bodyParser = require('body-parser');
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
 const articlesRouter=require('./routes/article.route')
-const userRouter=require('./routes/user.route') 
+const userRouter=require('./routes/user.route')  
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const { engine } = require('express-handlebars');
 const { create } = require('express-handlebars');
 const hbs = create({ /* config */ });
+const session = require('express-session'); 
+const flash = require('express-flash');
 
-
+ 
+ // Set up flash messages middleware
+ 
+   
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
 const PORT=process.env.PORT || 4000
@@ -28,6 +33,14 @@ app.use(cookieParser());
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
+
+
+app.use(session({
+     secret: 'your-secret-key',
+     resave: false,
+     saveUninitialized: true
+}));
+app.use(flash());
 
 
 

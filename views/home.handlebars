@@ -21,7 +21,11 @@
           <ul>
             <li> <a href='/articles' class='current-page'>Home</a> </li>
             <li> <a href=''>About Me</a> </li>
-            <li> <a href=''>Recent Posts</a> </li>
+            {{#if role}}
+              <li> <a href='/profile'>profile</a> </li>
+            {{else}}
+              <li> <a href='/auth/login'>Login</a> </li>
+            {{/if}}
           </ul>
         </nav>
       </div>
@@ -29,14 +33,14 @@
     <!-- header ends -->
     
     <!-- container starts -->
-    <div class="container container-flex" style=" background:blue">
-
-            <main role="main" class="w-100" style="width:100%">
-          {{#if messages.success}}
+       {{#if messages.success}}
               <div class="alert alert-danger">
                 {{messages.success}}
               </div>
           {{/if}}
+
+            <main role="main" class="container" >
+       
                 <div class="  d-flex justify-content-end" style="width: 100%;" >
                         {{#if role }}
                           <button type="button" class="btn btn-outline-info" >
@@ -58,7 +62,7 @@
                 
               
             </main>
-        </div>
+        
     <!-- container ends -->
     
     <!-- footer starts -->

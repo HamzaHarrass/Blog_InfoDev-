@@ -18,7 +18,7 @@ const createArticle = asyncHandler(async (req, res) => {
       content,
       picture: imagePath,
       published: true,
-      authorId: 1,
+      authorId: req.user.id,
     };
     const createdArticle = await Prisma.post.create({
       data: newarticle,
@@ -108,10 +108,10 @@ const deleteArticle = asyncHandler(async (req, res) => {
     }
 
     // Redirect to articles page or any other appropriate page
-    res.redirect("/articles");
+    res.redirect("/");
   } catch (error) {
     req.flash("error", "Error deleting article: " + error.message);
-    res.redirect("/articles"); // Redirect to articles page or any other appropriate page
+    res.redirect("/"); // Redirect to articles page or any other appropriate page
   }
 });
 const getArticle = asyncHandler(async (req, res) => {

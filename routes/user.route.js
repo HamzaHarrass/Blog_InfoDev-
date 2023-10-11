@@ -20,7 +20,7 @@ router.post('/updatePicture',authMiddleware,uploadfile,updateProfilePic)
 router.get('/',authMiddleware,getUser);
 router.delete('/:id',authMiddleware,deleteUser);
 router.put('/status/:id',statusUser)
-router.post('/:id',authMiddleware,updateProfile)
+router.post('/',authMiddleware,updateProfile)
 
 
 

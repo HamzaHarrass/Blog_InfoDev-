@@ -21,7 +21,7 @@ const getUser =async (req, res) => {
                Post:true
           }
      })
-     
+     console.log(user)
      //check if user is not found
      if(!user){
           res.status(404).json({
@@ -64,7 +64,7 @@ const statusUser = asyncHandler(async (req, res) => {
 const updateProfile = asyncHandler(async (req, res) => {
      console.log('profile')
      console.log(req.body)
-    const {id}=req.params
+    const {id}=req.user
     const prisma=new PrismaClient()
      try{ 
           const updateUser=await prisma.profile.update({
@@ -79,6 +79,7 @@ const updateProfile = asyncHandler(async (req, res) => {
                }
           })
           //check all fields change old value with new value
+          res.redirect('/profile')
           res.status(200).json({msg:'user updated',updateUser})
      }catch(error){
           throw new Error(error.message)
