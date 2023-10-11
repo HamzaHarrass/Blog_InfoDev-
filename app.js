@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
 const articlesRouter=require('./routes/article.route')
-const userRouter=require('./routes/user.route')
+const userRouter=require('./routes/user.route') 
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const { engine } = require('express-handlebars');
 const { create } = require('express-handlebars');
 const hbs = create({ /* config */ });
@@ -22,6 +23,8 @@ app.use('/uploadImage', express.static(path.join(__dirname, 'views', 'uploadImag
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
@@ -29,7 +32,7 @@ app.set('views', './views');
 
 
 app.use('/auth',authRouter)
-app.use('/articles',articlesRouter)
+app.use('/',articlesRouter)
 app.use('/profile',userRouter)
 
 app.use(express.static(path.join(__dirname, "views/public")));

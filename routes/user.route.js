@@ -1,5 +1,6 @@
 const express=require('express')
 const router=express.Router()
+const {authMiddleware,isAuthor}=require('../middleware/authMiddleware')
 
 
 const {
@@ -14,10 +15,10 @@ const {
 
 
 router.get('/all',getAllUsers);
-router.get('/:id',getUser);
-router.delete('/:id',deleteUser)
+router.get('/:id',authMiddleware,isAuthor,getUser);
+router.delete('/:id',authMiddleware,deleteUser);
 router.put('/status/:id',statusUser)
-router.post('/:id',updateProfile)
+router.post('/:id',authMiddleware,updateProfile)
 router.post('/updatePicture',updateProfilePic)
 
 

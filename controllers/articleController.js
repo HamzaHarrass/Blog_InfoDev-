@@ -1,5 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const Prisma = new PrismaClient();
+const slugify = require("slugify");
+
+
 const flash = require("connect-flash");
 
 const asyncHandler = require("express-async-handler");
@@ -7,7 +10,7 @@ const asyncHandler = require("express-async-handler");
 const createArticle = asyncHandler(async (req, res) => {
   const { title, content, createdAt } = req.body;
   const imagePath = req.file.filename; // Path to the uploaded file
-  console.log("Received form data:", { title, content, createdAt });
+  //console.log("Received form data:", { title, content, createdAt });
 
   try {
     const newarticle = {
@@ -20,17 +23,19 @@ const createArticle = asyncHandler(async (req, res) => {
     const createdArticle = await Prisma.post.create({
       data: newarticle,
     });
-    res.redirect("/articles");
+    res.redirect("/");
   } catch (error) {
     console.log(error);
   }
 });
-
 const editArticle = asyncHandler(async (req, res) => {
+  const {name}=req.params;
+  const Utitle = name.charAt(0).toUpperCase() + name.slice(1);
+  const title = Utitle.replace(/-/g, " ");
   const articleId = Number(req.params.id);
-  const getdataArticle = await Prisma.post.findUnique({
+  const getdataArticle = await Prisma.post.findFirst({
     where: {
-      id: articleId,
+      title: title,
     },
   });
   const formattedDate = new Date(getdataArticle.createdAt)
@@ -39,11 +44,11 @@ const editArticle = asyncHandler(async (req, res) => {
 
   res.render("editFormArticle", { article: { getdataArticle, formattedDate } });
 });
-
 const updateArticle = asyncHandler(async (req, res) => {
-  console.log(req.file);
-  console.log(req.body);
+  //console.log(req.file);
+  //console.log(req.body);
   const { id, lastimage, title, content, createdAt } = req.body;
+  const slug=slugify(title, { lower: true, strict: true })
   if (req.file === undefined) {
       try {
           const updateArticle = await Prisma.post.update({
@@ -57,14 +62,10 @@ const updateArticle = asyncHandler(async (req, res) => {
                   createdAt: new Date(createdAt),
               },
           });
-
-          res.redirect('/articles/'+id);
-
-
-
-          
-          console.log("Article updated without changing the image");
-          res.status(200).json({ message: "Article updated without changing the image" });
+          //console.log(updateArticle)
+          res.redirect('/article/'+slug);
+          //console.log("Article updated without changing the image");
+          //res.status(200).json({ message: "Article updated without changing the image" });
       } catch (error) {
           console.error(error.message);
       }
@@ -81,14 +82,8 @@ const updateArticle = asyncHandler(async (req, res) => {
                   createdAt: new Date(createdAt),
               },
           });
-
-          res.redirect('/articles/'+id);
-
-
-
-          console.log("Article updated with a new image");
-
-          res.status(200).json({ message: "Article updated with a new image" });
+          res.redirect('/article/'+slug);
+          //res.status(200).json({ message: "Article updated with a new image" });
       } catch (error) {
           console.error(error.message);
       }
@@ -107,7 +102,7 @@ const deleteArticle = asyncHandler(async (req, res) => {
     });
 
     if (deleteArticle) {
-      req.flash("success", "Article deleted successfully.");
+      res.flash("success", "Article deleted successfully.");
     } else {
       req.flash("error", "Article not found or could not be deleted.");
     }
@@ -121,31 +116,56 @@ const deleteArticle = asyncHandler(async (req, res) => {
 });
 const getArticle = asyncHandler(async (req, res) => {
   try {
-    const article = await Prisma.Post.findUnique({
+    const {name}=req.params;
+    //console.log(name);
+    //remove slug from name 
+    
+    //and add uppercase first letter
+    const Utitle = name.charAt(0).toUpperCase() + name.slice(1);
+    const title = Utitle.replace(/-/g, " ");
+    //filter title from espace 
+    
+
+    
+    const article = await Prisma.post.findFirst({
       where: {
-        id: Number(req.params.id),
+        title: title,
       },
     });
+    //console.log(article)
     // res.status(200).json(article)
 
-    res.render("article", { Article: article });
+    res.render("article", { Article: {
+      ...article,
+      slug: slugify(article.title, { lower: true, strict: true }),
+    } });
     // console.log(Article);
   } catch (error) {
     res.status(404).json({ msg: error.message });
   }
 });
 const getAllArticle = asyncHandler(async (req, res) => {
+  const posts={}
   try {
-    const articles = await Prisma.Post.findMany();
-    // res.status(200).json(articles)
-    res.render("home", { articles });
+    const articles = await Prisma.post.findMany({
+      //change title to slugify title
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    const articleWithSlug = articles.map((article) => ({
+      ...article,
+      slug: slugify(article.title, { lower: true, strict: true }),
+    }));
+    //res.status(200).json(articles)
+    res.render("home", { articles: articleWithSlug });
   } catch (error) {
     console.log(error).json(error.message);
   }
 });
 const Review = asyncHandler(async (req, res) => {
   const { Idarticle } = req.body; // Destructure Idarticle from req.body
-  console.log("thid is ", Idarticle);
+  //console.log("thid is ", Idarticle);
   try {
     const getAllcomment = await Prisma.Review.findMany({
       where: {
@@ -154,16 +174,15 @@ const Review = asyncHandler(async (req, res) => {
     });
     res.status(200).json({ getAllcomment });
   } catch (error) {
-    console.log(error.message);
+    //console.log(error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 const updateStatus = asyncHandler(async (req, res) => {});
 const addComment = asyncHandler(async (req, res) => {
   const { comment, Idarticle } = req.body;
-  console.log("Comment:", comment);
-  console.log("Idarticle:", Idarticle);
+  //console.log("Comment:", comment);
+  //console.log("Idarticle:", Idarticle);
   try {
     const newComment = {
       comment: comment,
@@ -180,7 +199,7 @@ const addComment = asyncHandler(async (req, res) => {
       .json({ message: "Comment added successfully", comment: addnewComment });
   } catch (error) {
     // Handle any errors that occur during the creation of the comment
-    console.log(error.message);
+    //console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 });

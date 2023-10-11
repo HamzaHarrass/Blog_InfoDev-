@@ -5,6 +5,8 @@ const {PrismaClient}=require('@prisma/client')
 
 const getUser =async (req, res) => {
     
+     console.log('get user')
+     //console.log(req.cookies)
     //get user by params id and get from database using prisma orm
      const {id}=req.params
      const prisma=new PrismaClient()
@@ -25,7 +27,7 @@ const getUser =async (req, res) => {
           })
      }
      //if user found then send user data
-     console.log(user)
+     //console.log(user)
      res.render('profile',{user});
 };
 const getAllUsers = asyncHandler(async (req, res) => {

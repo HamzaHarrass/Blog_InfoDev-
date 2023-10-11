@@ -39,7 +39,9 @@
             </div>
         {{/if}}
                 <div class=" w-75 d-flex justify-content-end" >
-                        <button type="button" class="btn btn-outline-info" ><a href="/articles/form">New article</a></button>
+                        <button type="button" class="btn btn-outline-info" >
+                          <a href="/article/add">New article</a>
+                        </button>
                 </div>
                 {{#each articles}}
                 <article class="article-featured">
@@ -47,7 +49,7 @@
                     <img src="uploadImage/{{picture}}"alt="{{picture}}" class="article-image">
                     <p class="article-info">{{createdAt}} | 3 comments</p>
                     <p class="article-body">{{content}}</p>
-                    <a href="/articles/{{id}}" class="article-read-more">CONTINUE READING</a>
+                    <a href="/article/{{slug}}" class="article-read-more">CONTINUE READING</a>
                 </article>
                     {{/each}}
 
