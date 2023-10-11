@@ -8,7 +8,8 @@ const getUser =async (req, res) => {
      console.log('get user')
      //console.log(req.cookies)
     //get user by params id and get from database using prisma orm
-     const {id}=req.params
+     const {id}=req.user;
+     console.log()
      const prisma=new PrismaClient()
      //get profile with user 
      const user=await prisma.user.findUnique({
@@ -16,7 +17,8 @@ const getUser =async (req, res) => {
                id:Number(id)
           },
           include:{
-               Profile:true
+               Profile:true,
+               Post:true
           }
      })
      
@@ -83,8 +85,22 @@ const updateProfile = asyncHandler(async (req, res) => {
      }
 });
 const updateProfilePic = asyncHandler(async (req, res) => {
-    
+     console.log('fuck that shit')
+     console.log(req.user.id)
+     const imagePath = req.file.filename;
+     let img=imagePath.replace(/\s+/g,'')
+     console.log(imagePath)
      const prisma=new PrismaClient()
+     const updatePictureUser=await prisma.profile.update({
+          where: {
+               userId: Number(req.user.id),
+          },
+          data: {
+               picture: img,
+          },
+          
+     })
+     res.redirect("/profile")
      //update file in database
 
 });

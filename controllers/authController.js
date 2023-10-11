@@ -77,7 +77,7 @@ const register = asyncHandler(async (req, res) => {
         }
 
         const hashedPassword = await bcryptjs.hash(password, 10);
-
+        let id_user
         const newUser = await prisma.user.create({
             data: {
                 name: name,
@@ -86,17 +86,28 @@ const register = asyncHandler(async (req, res) => {
             },
         }).then((saveUser)=>{
             console.log(saveUser)
+            
             const token = generateToken({id:saveUser.id},"7d")
+            id_user=saveUser.id
             res.cookie("token",token,{
                 httpOnly:false,
                 sameSite:"strict",// sameSite is using for csrf attack
                 secure:false,//secure is using for https or http and false is using for http
                 maxAge:1000*60*60*24*7,//maxAge is using for token expire time
             })
-            res.status(201).redirect("/");
-        }).catch((error)=>{res.status(400).json({message:error.message})})
-        
+           
+        })
+        .catch((error)=>{res.status(400).json({message:error.message})})
+        const createProfile=await prisma.profile.create({
+            data:{
+                userId:Number(id_user)
+            }
+        })
         ;
+
+        res.status(201).redirect("/");
+
+        
 
          // Redirect after successful registration
     } catch (error) {

@@ -16,7 +16,7 @@ const authMiddleware=asyncHandler(async(req,res,next)=>{
                 const prisma=new PrismaClient()
                 const user=await prisma.user.findUnique({
                     where:{
-                        id:Number(decoded.id)
+                        id:Number(decoded.payload.id)
                     }
                 })
                 //console.log('user from middleware')
@@ -33,14 +33,12 @@ const authMiddleware=asyncHandler(async(req,res,next)=>{
 
 const isAuthor=asyncHandler(async(req,res,next)=>{
      console.log('authoriation middleware')
-     if(req.user && (req.user.role==='AUTHOR' 
-          || req.user.role==='ADMIN'
-          || req.user.id===req.params.id)){
+     if(req.user && (req.user.role==='AUTHOR' || req.user.role==='ADMIN')){
                console.log('suceess')
           next() 
      }else{
           res.status(401)
-          throw new Error('Not authorized as an author or user is not authorized to get his own profile')
+          throw new Error('not auhtorazed like a admin and author')
      }
 })
 

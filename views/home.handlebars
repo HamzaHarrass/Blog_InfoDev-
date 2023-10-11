@@ -12,11 +12,10 @@
 </head>
  <body>
     <!-- header starts -->
-    <header>
+    <header class=" h-[80px]">
       <div class='container container-flex'>
         <div class='site-title'>
-          <h1>Living The Social Life</h1>
-          <p class='subtitle'>A blog exploring minimalism in life.</p>
+          <a href="/" class="" style="text-decoration:none"><h1>BLOGY</h1></a>
         </div>
         <nav>
           <ul>
@@ -30,59 +29,35 @@
     <!-- header ends -->
     
     <!-- container starts -->
-    <div class="container container-flex">
+    <div class="container container-flex" style=" background:blue">
 
-            <main role="main">
-        {{#if messages.success}}
-            <div class="alert alert-danger">
-        {{messages.success}}
-            </div>
-        {{/if}}
-                <div class=" w-75 d-flex justify-content-end" >
-                        <button type="button" class="btn btn-outline-info" >
-                          <a href="/article/add">New article</a>
-                        </button>
+            <main role="main" class="w-100" style="width:100%">
+          {{#if messages.success}}
+              <div class="alert alert-danger">
+                {{messages.success}}
+              </div>
+          {{/if}}
+                <div class="  d-flex justify-content-end" style="width: 100%;" >
+                        {{#if role }}
+                          <button type="button" class="btn btn-outline-info" >
+                            <a href="/article/add" style="text-decoration:none">New article</a>
+                          </button>
+                        {{/if}}
+                        
                 </div>
                 {{#each articles}}
-                <article class="article-featured">
+                <article class="article-featured " style="width:100%">
                     <h2 class="article-title">{{title}}</h2>
                     <img src="uploadImage/{{picture}}"alt="{{picture}}" class="article-image">
                     <p class="article-info">{{createdAt}} | 3 comments</p>
                     <p class="article-body">{{content}}</p>
                     <a href="/article/{{slug}}" class="article-read-more">CONTINUE READING</a>
                 </article>
-                    {{/each}}
+                {{/each}}
 
                 
               
             </main>
-            
-            <aside class="sidebar">
-                
-                <div class="sidebar-widget">
-                    <h2 class="widget-title">ABOUT ME</h2>
-                    <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/about-me.jpg" alt="john doe" class="widget-image">
-                    <p class="widget-body">I find life better, and I'm happier, when things are nice and simple.</p>
-                </div>
-                
-                <div class="sidebar-widget">
-                    <h2 class="widget-title">RECENT POSTS</h2>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Keeping cooking simple</h3>
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/food.jpg" alt="two dumplings on a wood plate with chopsticks" class="widget-image">
-                    </div>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Simplicity and work</h3>
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/work.jpg" alt="a chair white chair at a white desk on a white wall" class="widget-image">
-                    </div>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Simple decorations</h3>
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/deco.jpg" alt="a green plant in a clear, round vase with water in it" class="widget-image">
-                    </div>
-                </div>
-                
-            </aside>
-            
         </div>
     <!-- container ends -->
     

@@ -1,6 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const {authMiddleware,isAuthor}=require('../middleware/authMiddleware')
+const uploadfile = require("../helpers/multer"); // Import the helper function
 
 
 const {
@@ -15,11 +16,12 @@ const {
 
 
 router.get('/all',getAllUsers);
-router.get('/:id',authMiddleware,isAuthor,getUser);
+router.post('/updatePicture',authMiddleware,uploadfile,updateProfilePic)
+router.get('/',authMiddleware,getUser);
 router.delete('/:id',authMiddleware,deleteUser);
 router.put('/status/:id',statusUser)
 router.post('/:id',authMiddleware,updateProfile)
-router.post('/updatePicture',updateProfilePic)
+
 
 
 module.exports=router

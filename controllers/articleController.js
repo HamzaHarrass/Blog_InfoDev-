@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const Prisma = new PrismaClient();
 const slugify = require("slugify");
-
+const jwt=require('jsonwebtoken')
 
 const flash = require("connect-flash");
 
@@ -145,6 +145,43 @@ const getArticle = asyncHandler(async (req, res) => {
   }
 });
 const getAllArticle = asyncHandler(async (req, res) => {
+  let role=false
+  if(req?.cookies?.token){ 
+    const token=req?.cookies?.token
+    console.log('token article alll')
+    
+    //verify token
+    const decoded=jwt.verify(token,process.env.SECRET_KEY_TOKEN)
+    console.log(decoded)
+    
+    //console.log(decoded.payload.id)
+  
+    if(decoded?.payload){
+      const prisma=new PrismaClient()
+      const user=await prisma.user.findUnique({
+          where:{
+              id:Number(decoded.payload.id)
+          }
+      })
+      if(user.role==='ADMIN' || user.role==='AUTHOR'){
+        role=true
+      }
+    }else{
+      const prisma=new PrismaClient()
+      const user=await prisma.user.findUnique({
+          where:{
+              id:Number(decoded.id)
+          }
+      })
+      if(user.role==='ADMIN' || user.role==='AUTHOR'){
+        role=true
+      }
+    }
+    
+  }
+  console.log(role)
+  
+  
   const posts={}
   try {
     const articles = await Prisma.post.findMany({
@@ -158,7 +195,7 @@ const getAllArticle = asyncHandler(async (req, res) => {
       slug: slugify(article.title, { lower: true, strict: true }),
     }));
     //res.status(200).json(articles)
-    res.render("home", { articles: articleWithSlug });
+    res.render("home", { articles: articleWithSlug, role:role });
   } catch (error) {
     console.log(error).json(error.message);
   }
