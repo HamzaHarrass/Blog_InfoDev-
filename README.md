@@ -1,39 +1,37 @@
 # InfoDev
 
-A dynamic tech news blog for developers, featuring user authentication, article management, and interactive discussions.
-
+An interactive platform tailored for developers, showcasing tech news and fostering engaging discussions, complete with user authentication and efficient article management
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - Node.js and npm installed on your machine.
 - Git installed on your machine.
+- MySQL 
 
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
 
 1. Clone the repository:
-    ```bash
-    git clone git@github.com:MEZ901/InfoDev.git
+    ```terminal
+    git clone https://github.com/HamzaHarrass/Blog_InfoDev-.git
     ```
 2. Navigate to the project directory:
-   ```bash
-   cd InfoDev
+   ```terminal
+   cd Blog_InfoDev-
    ```
 3. Install dependencies using npm:
-    ```bash
-    npm install
+    ```terminal
+    npm i or yarn add
     ```
 
 ## Configuration
 
 You may need to configure some environment variables.
 
-1. Extract the `.env` file from the `.env.example` file:
-   ```bash
-   cp .env.example .env
-   ```
+1. Extract the `.env` file :
+   
 2. Update on the environment variables.
    
 ## Database Setup
@@ -42,15 +40,15 @@ You may need to configure some environment variables.
 
 1. Run database migrations:
 
-    ```bash
+    ```terminal
     npm run db:migrate
     ```
 2. Generate the Prisma Client code:
-   ```bash
+   ```terminal
     npm run prisma:generate
     ```
 3. Seed the database with initial data (optional):
-    ```bash
+    ```terminal
     npm run db:seed
     ```
 
@@ -58,18 +56,6 @@ You may need to configure some environment variables.
 
 To run the application locally, you can use the following command:
 
-```bash
+```terminal
 npm run dev
 ```
-
-> **PS:** You have two options to access the application:
->   1. **Browser-Sync Version (Auto-Refresh):**
->       - After running `npm run dev`, the Browser-Sync version of the application will be available at `http://localhost:3001`.
->       - Browser-Sync will automatically refresh the page whenever you make changes to your EJS templates, providing a smooth development experience.
->   2. **Normal Version (Manual Refresh):**
->       - The normal version of the application can be accessed at `http://localhost:3000`.
->       - In this version, changes to your EJS templates may require manual page refreshing in your web browser.
->
-> Feel free to choose the version that best suits your development needs..
-
-**PS 2:** We got some issues with the `Browser-Sync` package, so we recommend using the normal version of the application temporarily.
