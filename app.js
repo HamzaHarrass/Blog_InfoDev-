@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+//app.set on general is using for set the view engine and views folder(in other word is using for set the template engine)
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
@@ -42,7 +43,12 @@ app.use(session({
 }));
 app.use(flash());
 
-
+app.use((req, res, next)=>{
+     res.locals.ms_success = req.flash('success')
+     res.locals.ms_error = req.flash('error')
+     // res.locals.error= req.flash('error')
+     next()
+ })
 
 app.use('/auth',authRouter)
 app.use('/',articlesRouter)

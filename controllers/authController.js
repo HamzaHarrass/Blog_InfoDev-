@@ -15,7 +15,7 @@ const templetLogin = (req,res)=>{
 }
 
 const login = asyncHandler(async (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     
     try {
         const { email, password } = req.body;
@@ -38,8 +38,8 @@ const login = asyncHandler(async (req, res) => {
  
         if (passwordMatch) {
             const refreshToken=await refreshTokens(user?.id)
-            console.log('token')
-            console.log(refreshToken)
+            //console.log('token')
+            //console.log(refreshToken)
             //set in request header the token 
             res.setHeader('Authorization',`Bearer ${refreshToken}`)
             res.cookie("token",refreshToken,{
@@ -60,7 +60,7 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const register = asyncHandler(async (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
     const { name, email, password } = req.body;
     if (!name || !password || !email) {
         return res.status(400).send("Veuillez remplir tous les champs.");
@@ -85,7 +85,7 @@ const register = asyncHandler(async (req, res) => {
                 email: email,
             },
         }).then((saveUser)=>{
-            console.log(saveUser)
+            //console.log(saveUser)
             
             const token = generateToken({id:saveUser.id},"7d")
             id_user=saveUser.id

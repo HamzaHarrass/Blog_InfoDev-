@@ -42,24 +42,17 @@ const isAuthor=asyncHandler(async(req,res,next)=>{
      }
 })
 
-const isEmployee=asyncHandler(async(req,res,next)=>{
-     if(req.user && (req.user.role==='admin' || req.user.role==='employee')){
-          next() 
-     }else{
-          res.status(401)
-          throw new Error('Not authorized because you are not an employee')
-     }
-})
 
-const isGood=asyncHandler(async(req,res,next)=>{
+
+const isAdmin=asyncHandler(async(req,res,next)=>{
      if(req.user && req.user.role==='admin'){
           next() 
      }else{
           res.status(401)
-          throw new Error('Not authorized because you are not an good')
+          throw new Error('Not authorized because you are not an admin')
      }
 })
 
 
 
-module.exports={authMiddleware,isAuthor,isGood}
+module.exports={authMiddleware,isAuthor,isAdmin}

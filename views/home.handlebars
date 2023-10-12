@@ -23,6 +23,8 @@
             <li> <a href=''>About Me</a> </li>
             {{#if role}}
               <li> <a href='/profile'>profile</a> </li>
+              <li> <a href='/auth/logout'>Logout</a> </li>
+
             {{else}}
               <li> <a href='/auth/login'>Login</a> </li>
             {{/if}}
@@ -33,12 +35,17 @@
     <!-- header ends -->
     
     <!-- container starts -->
-       {{#if messages.success}}
-              <div class="alert alert-danger">
-                {{messages.success}}
+       {{#if ms_success}}
+              <div class="alert alert-success w-50" role="alert">
+                {{ms_success}}
               </div>
-          {{/if}}
+            {{/if}}
 
+            {{#if ms_error}}
+              <div class="alert alert-danger w-50 " role="alert">
+                {{ms_error}}
+              </div>
+            {{/if}}
             <main role="main" class="container" >
        
                 <div class="  d-flex justify-content-end" style="width: 100%;" >

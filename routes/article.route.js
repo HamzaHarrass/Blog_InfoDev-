@@ -16,6 +16,7 @@ const {
     updateStatus,
     home,
     formArticle,
+    deleteComment,
     editArticle,
     addComment,
     Review
@@ -32,6 +33,7 @@ router.get('/article/edit/:name',authMiddleware,isAuthor,editArticle);
 router.post('/article/update',authMiddleware,isAuthor,uploadfile,updateArticle)
 router.get('/delete/:id',authMiddleware,deleteArticle)
 router.put('/status/:id',updateStatus)
+router.get('/removecomment/:id',deleteComment)
 router.post('/addcomment',authMiddleware,addComment)
 router.post('/getAllcomment',Review )
 

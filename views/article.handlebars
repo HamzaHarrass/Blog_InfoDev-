@@ -90,31 +90,7 @@
 
 
             
-            <aside class="sidebar">
-                
-                <div class="sidebar-widget">
-                    <h2 class="widget-title">ABOUT ME</h2>
-                    <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/about-me.jpg" alt="john doe" class="widget-image">
-                    <p class="widget-body">I find life better, and I'm happier, when things are nice and simple.</p>
-                </div>
-                
-                <div class="sidebar-widget">
-                    <h2 class="widget-title">RECENT POSTS</h2>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Keeping cooking simple</h3>
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/food.jpg" alt="two dumplings on a wood plate with chopsticks" class="widget-image">
-                    </div>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Simplicity and work</h3>
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/work.jpg" alt="a chair white chair at a white desk on a white wall" class="widget-image">
-                    </div>
-                    <div class="widget-recent-post">
-                        <h3 class="widget-recent-post-title">Simple decorations</h3>
-                        <img src="https://raw.githubusercontent.com/kevin-powell/reponsive-web-design-bootcamp/master/Module%202-%20A%20simple%20life/img/deco.jpg" alt="a green plant in a clear, round vase with water in it" class="widget-image">
-                    </div>
-                </div>
-                
-            </aside>
+       
             
         </div>
     <!-- container ends -->
@@ -136,58 +112,62 @@
         const articleId = document.getElementById('articleid');
         const cardBody = document.querySelector('.card-body'); // Select the card-body element to append comments
         const subComment = document.getElementById('submit_comment');
+        const Delete = document.getElementById('delete_btn')
+          const idComment = document.getElementById('idCommentt');
+  console.log(idComment);
 
     document.addEventListener('DOMContentLoaded', function() {
     // Your code here will run after the DOM is fully loaded
     fetchAndDisplayComments(); // Call your function here to execute it when the DOM is loaded
 });
     // Your JavaScript function here
-          // Function to fetch and display comments
-        function fetchAndDisplayComments() {
+            // Function to fetch and display comments
+            function fetchAndDisplayComments() {
 
-            const idArticle = articleId.value;
+                const idArticle = articleId.value;
 
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body : JSON.stringify({ 
-                            Idarticle : idArticle,
-                            })
-            };
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body : JSON.stringify({ 
+                                Idarticle : idArticle,
+                                })
+                };
 
-            fetch('/articles/getAllcomment', requestOptions)
-                .then(response => response.json())
-                .then(comments => {
+                fetch('/getAllcomment', requestOptions)
+                    .then(response => response.json())
+                    .then(comments => {
 
-                    // Loop through the comments and create HTML elements for each comment
-                    comments.getAllcomment.forEach(comment => {
-                        const commentDiv = document.createElement('div');
-                        commentDiv.className = ' mb-4 card card-body';
-                        commentDiv.innerHTML = `
-                           <p class="newcomment">${comment.comment}</p>
-                        <!-- Rest of your HTML structure here -->
-                         <div class="d-flex justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25" height="25" />
-                                            <p class="small mb-0 ms-2">Martha</p>
+                        // Loop through the comments and create HTML elements for each comment
+                        comments.getAllcomment.forEach(comment => {
+                            const commentDiv = document.createElement('div');
+                            commentDiv.className = ' mb-4 card card-body';
+                            commentDiv.innerHTML = `
+                            <p class="newcomment">${comment.comment}</p>
+                            <!-- Rest of your HTML structure here -->
+                            <div class="d-flex justify-content-between">
+                                                        <input type"number" hidden id="idCommentt" value="${comment.id}">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp" alt="avatar" width="25" height="25" />
+                                                <p class="small mb-0 ms-2">Martha</p>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <p class="small mb-0" style="color: #aaa;">
+                                             <a href="/removecomment/${comment.id}" class="link-grey">Remove</a> 
+                                                </p>    
+                                                <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                                <p class="small text-muted mb-0">3</p>
+                                                
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-row align-items-center">
-                                             <p class="small mb-0" style="color: #aaa;">
-                                                <a href="#!" class="link-grey">Remove</a> •
-                                            </p>    
-                                            <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                                            <p class="small text-muted mb-0">3</p>
-                                            
-                                        </div>
-                                    </div>
-                    `;
-                        cardBody.appendChild(commentDiv); // Append each comment inside the card-body element
+                        `;
+                            cardBody.appendChild(commentDiv); // Append each comment inside the card-body element
+                        });
+                    })
+                    .catch(error => {
+                        console.log('Error:', error);
                     });
-                })
-                .catch(error => {
-                    console.log('Error:', error);
-                });
-}
+    }
 
     
     
@@ -207,13 +187,13 @@
                     })
             };
 
-            fetch('/articles/addcomment', requestOptions)
+            fetch('/addcomment', requestOptions)
                 .then(response => response.json())
                 .then(data => {
                   //  console.log("this data for comment", data.comment.id)
                // Create new comment elements
                     const commentDiv = document.createElement('div');
-                    commentDiv.className = 'card card-body';
+                    commentDiv.className = 'mb-4 card card-body';
                     commentDiv.innerHTML = `
                         <p class="newcomment">${data.comment.comment}</p>
                         <!-- Rest of your HTML structure here -->
@@ -224,7 +204,7 @@
                                         </div>
                                         <div class="d-flex flex-row align-items-center">
                                              <p class="small mb-0" style="color: #aaa;">
-                                                <a href="#!" class="link-grey">Remove</a> •
+                                             <a href="/removecomment/${data.comment.id}" class="link-grey">Remove</a> 
                                             </p>    
                                             <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
                                             <p class="small text-muted mb-0">3</p>
@@ -243,6 +223,8 @@
                 commentInput.value = "";
 
         });
+
+
 
       
 

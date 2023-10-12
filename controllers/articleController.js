@@ -23,6 +23,12 @@ const createArticle = asyncHandler(async (req, res) => {
     const createdArticle = await Prisma.post.create({
       data: newarticle,
     });
+
+    if (createdArticle) {
+      req.flash("success", "Article added successfully.");
+    } else {
+      req.flash("error", "Article not found or could not be added.");
+    }
     res.redirect("/");
   } catch (error) {
     console.log(error);
@@ -62,6 +68,11 @@ const updateArticle = asyncHandler(async (req, res) => {
                   createdAt: new Date(createdAt),
               },
           });
+          if (updateArticle) {
+            req.flash("success", "Article updated successfully.");
+          } else {
+            req.flash("error", "Article not found or could not be updated.");
+          }
           //console.log(updateArticle)
           res.redirect('/article/'+slug);
           //console.log("Article updated without changing the image");
@@ -82,6 +93,11 @@ const updateArticle = asyncHandler(async (req, res) => {
                   createdAt: new Date(createdAt),
               },
           });
+          if (updateArticle) {
+            req.flash("success", "Article updated successfully.");
+          } else {
+            req.flash("error", "Article not found or could not be updated.");
+          }
           res.redirect('/article/'+slug);
           //res.status(200).json({ message: "Article updated with a new image" });
       } catch (error) {
@@ -92,7 +108,7 @@ const updateArticle = asyncHandler(async (req, res) => {
 });
 const deleteArticle = asyncHandler(async (req, res) => {
   const articleId = Number(req.params.id);
-  console.log(articleId);
+  //console.log(articleId);
 
   try {
     const deleteArticle = await Prisma.post.delete({
@@ -102,7 +118,7 @@ const deleteArticle = asyncHandler(async (req, res) => {
     });
 
     if (deleteArticle) {
-      res.flash("success", "Article deleted successfully.");
+      req.flash("success", "Article deleted successfully.");
     } else {
       req.flash("error", "Article not found or could not be deleted.");
     }
@@ -148,11 +164,11 @@ const getAllArticle = asyncHandler(async (req, res) => {
   let role=false
   if(req?.cookies?.token){ 
     const token=req?.cookies?.token
-    console.log('token article alll')
+    //console.log('token article alll')
     
     //verify token
     const decoded=jwt.verify(token,process.env.SECRET_KEY_TOKEN)
-    console.log(decoded)
+    //console.log(decoded)
     
     //console.log(decoded.payload.id)
   
@@ -179,7 +195,7 @@ const getAllArticle = asyncHandler(async (req, res) => {
     }
     
   }
-  console.log(role)
+  //console.log(role)
   
   
   const posts={}
@@ -240,7 +256,25 @@ const addComment = asyncHandler(async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-const deleteComment = asyncHandler(async (req, res) => {});
+const deleteComment = asyncHandler(async (req, res) => {
+  const  id  = req.params.id;
+  console.log(id);
+
+  try {
+    const deletedComment = await Prisma.Review.delete({
+      where: {
+        id:Number(id),
+      },
+    });
+
+    if (deletedComment) {
+      res.redirect('/')
+    } 
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    res.status(500).json({ success: false, message: 'Internal server error.' });
+  }
+});
 const ratingArticle = asyncHandler(async (req, res) => {});
 const home = (req, res) => {
   // res.render('home');
