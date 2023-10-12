@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.0",
     "connect-flash": "^0.1.1",
+    "csurf": "^1.11.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
@@ -38,7 +39,10 @@
   "devDependencies": {
     "browser-sync": "^2.29.3",
     "nodemon": "^3.0.1",
-    "prisma": "^5.3.1",
+    "prisma": "^5.4.2",
     "tailwindcss": "^3.3.3"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }

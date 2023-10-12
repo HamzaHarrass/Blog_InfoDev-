@@ -1,10 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const Prisma = new PrismaClient();
 const flash = require("connect-flash");
-const multer = require("multer");
 
 const asyncHandler = require("express-async-handler");
-const upload = require("../helpers/multer"); // Import the helper function
 
 const createArticle = asyncHandler(async (req, res) => {
   const { title, content, createdAt } = req.body;
@@ -41,6 +39,7 @@ const editArticle = asyncHandler(async (req, res) => {
 
   res.render("editFormArticle", { article: { getdataArticle, formattedDate } });
 });
+
 const updateArticle = asyncHandler(async (req, res) => {
   console.log(req.file);
   console.log(req.body);
@@ -153,7 +152,6 @@ const Review = asyncHandler(async (req, res) => {
         postId: parseInt(Idarticle), // Use Idarticle in the where clause after parsing it to an integer
       },
     });
-    console.log(getAllcomment);
     res.status(200).json({ getAllcomment });
   } catch (error) {
     console.log(error.message);

@@ -1,10 +1,6 @@
-const express=require('express');
+const express=require('express')
+const app=express()
 const bodyParser = require('body-parser');
-const app = express();
-const flash = require('express-flash');
-const session = require('express-session');
-
-
 
 const dotenv=require('dotenv').config()
 const authRouter=require('./routes/auth.route')
@@ -18,29 +14,14 @@ const hbs = create({ /* config */ });
 
 const { notFound, errorHandler } = require('./middleware/errorHandler')
 //const { authMiddleware } = require('./middleware/authMiddleware')
-const PORT=process.env.PORT || 3011
-// Parse application/x-www-form-urlencoded and application/json
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const PORT=process.env.PORT || 4000
 
 app.use('/styles', express.static(path.join(__dirname, 'views', 'public')));
 app.use('/uploadImage', express.static(path.join(__dirname, 'views', 'uploadImage')));
-app.use(session({
-     secret: 'your-secret-key',
-     resave: false,
-     saveUninitialized: true
- }));
- 
- // Set up flash messages middleware
- app.use(flash());
 
 
-
-
-// Serve static files from the 'public' directory
-
-
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
