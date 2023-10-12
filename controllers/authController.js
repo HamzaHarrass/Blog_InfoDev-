@@ -1,11 +1,11 @@
-const express = require('express');
+ const express = require('express');
 const bcryptjs = require("bcryptjs");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 
 
-const asyncHandler= require('express-async-handler')
+const asyncHandler = require('express-async-handler')
 
 const templetLogin = (req,res)=>{
     res.render('auth')
@@ -34,8 +34,7 @@ const login = asyncHandler(async (req, res) => {
         const passwordMatch = await bcryptjs.compare(password, user.password);
 
         if (passwordMatch) {
-            // Authentication successful, you can manage the user session here if needed
-            return res.redirect("/articles"); // Redirect after successful login
+            return res.redirect("/articles"); 
         } else {
             return res.status(401).send("Email ou mot de passe incorrect.");
         }
@@ -75,7 +74,7 @@ const register = asyncHandler(async (req, res) => {
             },
         });
 
-        res.status(201).redirect("/articles"); // Redirect after successful registration
+        res.status(201).redirect("/articles");
     } catch (error) {
         console.error(error);
         return res.status(500).send("Une erreur s'est produite lors de l'inscription.");
